@@ -76,6 +76,8 @@ ${SETUP_DIR}/.configured: common/.git/config
 	[ -d ${SETUP_DIR}/conf ] || ( cp -ra common/conf ${SETUP_DIR}/conf )
 	[ -e ${SETUP_DIR}/conf/topdir.conf ] || echo "TOPDIR='`pwd`/${SETUP_DIR}'" > ${SETUP_DIR}/conf/topdir.conf
 	[ -e scripts/oebb.sh ] && ( OE_SOURCE_DIR=`pwd`/${SETUP_DIR} scripts/oebb.sh update )
+	[ -d sstate-cache ] || ( mkdir -p sstate-cache )
+	[ -d ${SETUP_DIR}/sstate-cache ] || (cd ${SETUP_DIR} ; ln -sf ../sstate-cache . )
 	touch ${SETUP_DIR}/.configured
 
 .PHONY: update-common
