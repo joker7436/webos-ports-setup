@@ -10,7 +10,7 @@ URL_COMMON = "git@github.com/webOS-ports/webos-ports-setup.git"
 UPDATE_CONFFILES_ENABLED = "0"
 RESET_ENABLED = "0"
 
-SETUP_DIR = "webos-ports"
+SETUP_DIR ?= "webos-ports"
 
 ifneq ($(wildcard config.mk),)
 include config.mk
@@ -65,7 +65,7 @@ setup-%:
 	${MAKE} $*/.configured
 
 .PRECIOUS: webos-ports/.configured
-webos-ports/.configured: common/.git/config
+${SETUP_DIR}/.configured: common/.git/config
 	@echo "preparing ${SETUP_DIR} tree"
 	[ -d ${SETUP_DIR} ] || ( mkdir -p ${SETUP_DIR} )
 	[ -e downloads ] || ( mkdir -p downloads )
